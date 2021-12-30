@@ -1,0 +1,4 @@
+fifo.c:7:6:FIFO_Init	24	static
+fifo.c:19:7:FIFO_SetData	24	static
+fifo.c:42:5:FIFO_IsEmpty	16	static
+fifo.c:49:10:FIFO_GetData	24	static
