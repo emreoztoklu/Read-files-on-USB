@@ -10,10 +10,11 @@ This file is about How to read files data on USB over STM32F407 Discovery Kit
   - USB_OTG_FS
   - retarget folder fir (printf and scanf functions)
   - Debug Test: used UART3  
-  
-  
-  Example Output:
-  ----------------------
+ 
+ 
+ 
+#Example Output:
+----------------------
 USB  Total Size KB:   30720
 USB Free Space KB:    30709
 File: //rec.wav       1816 KB
