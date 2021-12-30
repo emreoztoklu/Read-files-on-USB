@@ -14,7 +14,7 @@ This file is about How to read files data on USB over STM32F407 Discovery Kit
  
  
 #Example Output:
-----------------------
+
 USB  Total Size KB:   30720
 USB Free Space KB:    30709
 File: //rec.wav       1816 KB
@@ -25,7 +25,7 @@ File: //ses3.wav      2141 KB
 File: //ses4.wav      2487 KB
 Dir: DIR1
 File: //text1.txt  23 KB
------------------------------
+
 Enter a any file name to read from exist files:
 -> sample.bin \r\n
 
