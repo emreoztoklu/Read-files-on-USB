@@ -2,7 +2,7 @@
 
 This file is about How to read files data on USB over STM32F407 Discovery Kit
 
-  - Compiler IDE: CubeIDE  (Framework v1.26 has issuse because of that it will be good choice if you create firttime file with CubeMX)
+  - Compiler IDE: CubeIDE  (Framework v1.26 has issuse because of that it will be good choice if you create firsttime file with CubeMX)
   
   - OTG Mass Storage Class
   - FatFile System
