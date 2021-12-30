@@ -252,7 +252,6 @@ FRESULT Read_File (char *name){
 		        if (br == 0)
 		        	break; /* error or eof */
 
-
 			isOn = !isOn;
 			if(isOn == 1)
 			  delay = 100;
