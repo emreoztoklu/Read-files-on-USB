@@ -21,12 +21,7 @@ uint16_t NumObs = 0;
 extern UART_HandleTypeDef huart3;
 #define UART &huart3
 
-
-
 /* =============================>>>>>>>> NO CHANGES AFTER THIS LINE =====================================>>>>>>> */
-
-
-
 extern char USBHPath[4];   /* USBH logical drive path */
 extern FATFS USBHFatFS;    /* File system object for USBH logical drive */
 extern FIL USBHFile;       /* File object for USBH */
@@ -40,18 +35,11 @@ FATFS *pUSBHFatFS;
 DWORD fre_clust;
 uint32_t total, free_space;
 
-uint8_t rxBuffer[64] = {0};
 
 void Send_Uart (char *string){
 
 	HAL_UART_Transmit(UART, (uint8_t *)string, strlen(string), HAL_MAX_DELAY);
 
-}
-
-char * Get_FilenameUart (void) {
-	Send_Uart("Enter a File name:");
-	HAL_UART_Receive(UART, rxBuffer, 64, HAL_MAX_DELAY);
-	return (char*)rxBuffer;
 }
 
 

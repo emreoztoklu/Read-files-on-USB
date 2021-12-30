@@ -124,7 +124,7 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id){
 			Appli_state = APPLICATION_DISCONNECT;
 			Unmount_USB();
 			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-			Send_Uart("There is no any FlashDisk\n");
+			printf("There is no any FlashDisk\n");
 
   		  break;
 
