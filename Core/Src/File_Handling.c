@@ -10,6 +10,14 @@
 #include "usb_host.h"
 #include <string.h>
 #include <stdio.h>
+#include "STM_flash.h"
+#include <machine/endian.h>
+
+
+
+
+unsigned char buffer4[4];
+#define LITTLE_TO_BIG_ENDIAN(buff)   (buff[0] |(buff[1]<<8) | (buff[2]<<16) | (buff[3]<<24));
 
 //#include "retarget.h"
 
@@ -152,6 +160,7 @@ FRESULT Format_USB (void){
 
 FRESULT Write_File (char *name, char *data){
 
+
 	/**** check whether the file exists or not ****/
 	if ((fresult = f_stat (name, &USBHfno)) != FR_OK){
 		char *buf = malloc(100*sizeof(char));
@@ -204,6 +213,23 @@ FRESULT Write_File (char *name, char *data){
 	}
 }
 
+
+void toggleinfoled(GPIO_TypeDef* Portx, uint16_t Portnumber, int delay){
+
+	int isOn;
+	int delay1;
+
+	isOn = !isOn;
+	if(isOn == 1)
+	  delay1 = delay;
+	else
+	  delay1 = delay;
+
+	HAL_GPIO_WritePin(Portx, Portnumber, isOn);
+	HAL_Delay(delay1);
+}
+
+
 FRESULT Read_File (char *name){
 	/**** check whether the file exists or not ****/
 
@@ -226,6 +252,10 @@ FRESULT Read_File (char *name){
 		    return fresult;
 		}
 
+//char* bufferX = 0x080186A0;
+
+
+
 /* Read data from the file
  *
  ** see the function details for the arguments */
@@ -235,48 +265,41 @@ FRESULT Read_File (char *name){
     	Send_Uart(buf);
         free(buf);
 /********************************************************************************/
-		char buffer[4096];
-		char buffer1[4096];
-		int isOn;
-		int delay;
+
+
+
+        BYTE buffer[512];
+        int bytecount = 0;
+
 	    FRESULT fr;          /* FatFs function common result code */
 	    UINT br, bw;         /* File read/write count */
 
-		memset((void*)buffer, 0,sizeof(buffer));
-		memset((void*)buffer1, 0,sizeof(buffer));
-
 
 //		while(f_gets(buffer,sizeof(buffer), &USBHFile)){
-		for(;;){
-			fr = f_read(&USBHFile, buffer, sizeof (buffer), &br); /* Read a chunk of data from the source file */
-		        if (br == 0)
-		        	break; /* error or eof */
+		while (&USBHFile != f_eof(&USBHFile)){
+			memset((void*)buffer, 0,sizeof(buffer));
+			fr = f_read(&USBHFile,(void*)buffer, sizeof(buffer), &br); /* Read a chunk of data from the source file */
+			if (br == 0)
+				break; /* error or eof */
 
-			isOn = !isOn;
-			if(isOn == 1)
-			  delay = 100;
-			else
-			  delay = 100;
+		toggleinfoled(GPIOD, GPIO_PIN_13, 100);
 
-			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, isOn);
-			HAL_Delay(delay);
 
-			Send_Uart("\n");
-			for ( int i = 0; i < sizeof(buffer); i++){
-				snprintf(buffer1,sizeof(buffer),"%02X", buffer[i]);
+		write_STM32_Flash((uint32_t)0x08010000,(uint32_t*)buffer,1);
 
-				if(i!=0 && !( i % 1)){
-					Send_Uart(" ");
-					if(!(i % 16)){
-						Send_Uart("\n");
-					}
+
+		printf("\n");
+		for(int i = 0; i < sizeof(buffer) ; i++){
+			if(i!=0 && !( i % 4)){
+				printf(" ");
+				if(!(i % 64)){
+					printf("\n");
 				}
-
-				Send_Uart(buffer1);
-
+			}
+			printf("%02X", *(BYTE*)(buffer + i));
 			}
 		}
-		Send_Uart("\n\n");
+		printf("\n\n");
 
 /********************************************************************************/
 /* Close file */
@@ -296,6 +319,9 @@ FRESULT Read_File (char *name){
 	    return fresult;
 	}
 }
+
+
+
 
 FRESULT Create_File (char *name){
 

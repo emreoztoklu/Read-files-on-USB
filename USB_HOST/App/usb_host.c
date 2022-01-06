@@ -133,13 +133,16 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id){
 			 Mount_USB();
 			 HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_RESET);
 			 Check_USB_Details();   // check space details
+
 			 while(1){
 				 Scan_USB("/");
 				 printf("-----------------------------\n");
 				 printf("Enter a any file name to read from exist files:");
 				 scanf("%s", path);
-				 printf("Enterence is : %s", path);
+				 printf("Enterence is : %s\n", path);
 				 HAL_Delay(300);
+
+
 				 Read_File(path);
 				 printf("-----------------------------\n");
 

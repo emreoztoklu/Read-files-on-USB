@@ -6,6 +6,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/File_Handling.c \
+../Core/Src/STM_flash.c \
 ../Core/Src/fifo.c \
 ../Core/Src/main.c \
 ../Core/Src/retarget.c \
@@ -16,6 +17,7 @@ C_SRCS += \
 
 OBJS += \
 ./Core/Src/File_Handling.o \
+./Core/Src/STM_flash.o \
 ./Core/Src/fifo.o \
 ./Core/Src/main.o \
 ./Core/Src/retarget.o \
@@ -26,6 +28,7 @@ OBJS += \
 
 C_DEPS += \
 ./Core/Src/File_Handling.d \
+./Core/Src/STM_flash.d \
 ./Core/Src/fifo.d \
 ./Core/Src/main.d \
 ./Core/Src/retarget.d \
@@ -42,7 +45,7 @@ Core/Src/%.o: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/File_Handling.d ./Core/Src/File_Handling.o ./Core/Src/fifo.d ./Core/Src/fifo.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/retarget.d ./Core/Src/retarget.o ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o
+	-$(RM) ./Core/Src/File_Handling.d ./Core/Src/File_Handling.o ./Core/Src/STM_flash.d ./Core/Src/STM_flash.o ./Core/Src/fifo.d ./Core/Src/fifo.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/retarget.d ./Core/Src/retarget.o ./Core/Src/stm32f4xx_hal_msp.d ./Core/Src/stm32f4xx_hal_msp.o ./Core/Src/stm32f4xx_it.d ./Core/Src/stm32f4xx_it.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32f4xx.d ./Core/Src/system_stm32f4xx.o
 
 .PHONY: clean-Core-2f-Src
 
