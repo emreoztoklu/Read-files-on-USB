@@ -124,7 +124,7 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id){
 			Appli_state = APPLICATION_DISCONNECT;
 			Unmount_USB();
 			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_13, GPIO_PIN_SET);
-			printf("There is no any FlashDisk\n");
+			printf("There is no any FlashDisk\r\n");
 
   		  break;
 
@@ -135,16 +135,16 @@ static void USBH_UserProcess  (USBH_HandleTypeDef *phost, uint8_t id){
 			 Check_USB_Details();   // check space details
 
 			 while(1){
-				 Scan_USB("/");
-				 printf("-----------------------------\n");
-				 printf("Enter a any file name to read from exist files:");
+				 Scan_USB(USBHPath);
+				 printf("-----------------------------\r\n");
+				 printf("Enter a any file name to read from exist files:\r\n");
 				 scanf("%s", path);
-				 printf("Enterence is : %s\n", path);
+				 printf("Enterence is : %s \r\n", path);
 				 HAL_Delay(300);
 
 
 				 Read_File(path);
-				 printf("-----------------------------\n");
+				 printf("-----------------------------\r\n");
 
 			 }
 
